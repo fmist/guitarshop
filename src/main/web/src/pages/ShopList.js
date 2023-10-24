@@ -1,12 +1,14 @@
 import {useEffect, useState} from "react";
 import {Button, Table} from "react-bootstrap";
 import Rest from "../api/Rest";
+import {useNavigate} from "react-router";
 
 export default function ShopList() {
     const [posts, setPosts] = useState([])
+    let navigate = useNavigate()
 
     useEffect(() => {
-        Rest.loadData(setPosts)
+        Rest.loadProducts(setPosts)
     }, []);
 
     return (
@@ -24,7 +26,11 @@ export default function ShopList() {
                     <tr key={posts.id}>
                         <td>{posts.name}</td>
                         <td>{posts.description}</td>
-                        <td className="text-right">
+                        <td className="text-right w-25">
+                            <Button variant="warning"
+                                    onClick={() => navigate(`/edit/${posts.id}`)}
+                            >Edit
+                            </Button>
                             <Button variant="secondary"
                                     onClick={() => Rest.deleteProduct(posts.id)}
                             >Delete

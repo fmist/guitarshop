@@ -1,19 +1,25 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Container, Form, InputGroup} from "react-bootstrap";
 import Rest from "../api/Rest";
-import {useNavigate} from 'react-router';
+import {useNavigate, useParams} from 'react-router';
 
-const InputBar = () => {
+const EditBar = () => {
     const [product, setProduct] = useState(
         {
             name: "",
             description: ""
         }
     )
-    const {name, description} = product
+
     const onInputChange = (e) => {
         setProduct({...product, [e.target.name]: e.target.value})
     }
+    const {id} = useParams()
+
+    useEffect(() => {
+        Rest.loadProduct(id, setProduct)
+    }, [])
+
     let navigate = useNavigate()
 
     return (
@@ -28,7 +34,7 @@ const InputBar = () => {
                     id="name"
                     name="name"
                     type="name"
-                    value={name || ''}
+                    value={product.name}
                     onChange={(e) => onInputChange(e)}
                 />
             </InputGroup>
@@ -42,14 +48,14 @@ const InputBar = () => {
                     id="description"
                     name="description"
                     type="description"
-                    value={description || ''}
+                    value={product.description}
                     onChange={(e) => onInputChange(e)}
                 />
             </InputGroup>
             <Button onClick={
                 function (e) {
                     e.preventDefault()
-                    Rest.addProduct(product)
+                    Rest.editProduct(id, product)
                         .then(r => {console.log(r.data)})
                     navigate("/")
                     window.location.reload()
@@ -59,4 +65,4 @@ const InputBar = () => {
     );
 };
 
-export default InputBar;
+export default EditBar;

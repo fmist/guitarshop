@@ -5,6 +5,7 @@ import Menubar from "./pages/Menubar";
 import {Route, Routes} from "react-router-dom";
 import InputBar from "./pages/InputBar";
 import About from "./pages/About";
+import EditBar from "./pages/EditBar";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
               <Route path="/" element={<ShopList/>}></Route>
               <Route path="/add" element={<InputBar/>}></Route>
               <Route path="/about" element={<About/>}></Route>
+              <Route path="/edit/:id" element={<EditBar/>}></Route>
           </Routes>
       </div>
   );

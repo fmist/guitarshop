@@ -4,13 +4,19 @@ export default class Rest {
 
     static request = axios.create({baseURL: "http://localhost:8083"})
 
-    static loadData = async (setPosts) => {
+    static loadProducts = async (setProducts) => {
         await Rest.request.get("/")
             .then(response =>  {
-                setPosts(response.data)
+                setProducts(response.data)
                 console.log(response.data)
                 }
             )
+    }
+
+    static loadProduct = async (id, setProduct) => {
+        await Rest.request.get(`/${id}`)
+            .then(response =>
+            setProduct(response.data))
     }
 
     static deleteProduct = async (id) => {
@@ -21,7 +27,12 @@ export default class Rest {
             })
     }
 
-    static addProduct = async (post) => {
-        await Rest.request.post("/add", post)
+    static addProduct = async (product) => {
+        await Rest.request.post("/add", product)
     }
+
+    static editProduct = async (id, product) => {
+        await Rest.request.put(`/edit/${id}`, product)
+    }
+
 }
