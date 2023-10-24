@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:8083" })
 @RestController
 public class ProductController {
     ProductRepository productRepository;
@@ -19,7 +20,7 @@ public class ProductController {
     }
 
     @GetMapping("/")
-    private Iterable<Product> getProducts() {
+    private List<Product> getProducts() {
         return productRepository.findAll();
     }
 
