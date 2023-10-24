@@ -5,14 +5,6 @@ import Rest from "../api/Rest";
 export default function ShopList() {
     const [posts, setPosts] = useState([])
 
-    // useEffect(() => {
-    //     Rest.request.get("/")
-    //         .then(response => {
-    //             setPosts(response.data)
-    //             console.log(response.data)
-    //         })
-    // }, []);
-
     useEffect(() => {
         Rest.loadData(setPosts)
     }, []);
