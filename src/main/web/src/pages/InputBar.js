@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Container, Form, InputGroup} from "react-bootstrap";
 import Rest from "../api/Rest";
 import {useNavigate} from 'react-router';
@@ -48,7 +48,6 @@ const InputBar = () => {
             </InputGroup>
             <Button onClick={
                 function (e) {
-                    e.preventDefault()
                     Rest.addProduct(product)
                         .then(r => {console.log(r.data)})
                     navigate("/")

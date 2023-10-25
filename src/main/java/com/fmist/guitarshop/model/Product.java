@@ -1,22 +1,24 @@
 package com.fmist.guitarshop.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Product {
 
     @Id()
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String name;
 
     private String description;
 
-    public String getId() {
+    private LocalDateTime timeCreated;
+
+    public Long getId() {
         return id;
     }
 
@@ -28,7 +30,7 @@ public class Product {
         return description;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -38,5 +40,15 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void getDateTimeCreated() {
+        timeCreated = LocalDateTime.now();
+    }
+
+    public String getTime() {
+        return DateTimeFormatter.ofPattern("dd/MM/yy HH:mm:ss").format(timeCreated);
     }
 }

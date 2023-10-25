@@ -53,8 +53,7 @@ const EditBar = () => {
                 />
             </InputGroup>
             <Button onClick={
-                function (e) {
-                    e.preventDefault()
+                function () {
                     Rest.editProduct(id, product)
                         .then(r => {console.log(r.data)})
                     navigate("/")
