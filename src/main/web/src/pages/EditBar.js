@@ -17,7 +17,7 @@ const EditBar = () => {
     const {id} = useParams()
 
     useEffect(() => {
-        Rest.loadProduct(id, setProduct)
+      Rest.loadProduct(id, setProduct)
     }, [])
 
     let navigate = useNavigate()
@@ -53,11 +53,10 @@ const EditBar = () => {
                 />
             </InputGroup>
             <Button onClick={
-                function () {
+                function (e) {
+                    e.preventDefault()
                     Rest.editProduct(id, product)
-                        .then(r => {console.log(r.data)})
                     navigate("/")
-                    window.location.reload()
                 }
             }>Submit</Button>
         </Container>

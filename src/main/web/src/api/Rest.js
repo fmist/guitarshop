@@ -21,10 +21,6 @@ export default class Rest {
 
     static deleteProduct = async (id) => {
         await Rest.request.delete(`/delete/${id}`)
-            .then((response) => {
-                console.log(response.data)
-                window.location.reload()
-            })
     }
 
     static addProduct = async (product) => {

@@ -1,15 +1,16 @@
 package com.fmist.guitarshop.service;
 
 import com.fmist.guitarshop.model.Product;
-import com.fmist.guitarshop.repository.ProductRepository;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public class ProductService {
-    ProductRepository productRepository;
+public interface ProductService {
+    List<Product> listAllProducts();
+    ResponseEntity<?> getProductById(Long id);
+    Product saveProduct(Product product);
 
-    public List<Product> getProducts() {
-        return productRepository.findAll();
-    }
+    Product editProduct(Long id, Product product);
 
+    void deleteProduct(Long id);
 }

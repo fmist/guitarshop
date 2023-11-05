@@ -2,49 +2,48 @@ package com.fmist.guitarshop.controller;
 
 import com.fmist.guitarshop.model.Product;
 import com.fmist.guitarshop.repository.ProductRepository;
-import org.springframework.http.HttpStatus;
+import com.fmist.guitarshop.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
-@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:8083" })
+
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8083"})
 @RestController
 public class ProductController {
     ProductRepository productRepository;
+    ProductService productService;
 
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping("/")
     private List<Product> getProducts() {
-        return productRepository.findAll();
+        return productService.listAllProducts();
     }
 
     @GetMapping("/{id}")
-    private Optional<Product> getProductById(@PathVariable Long id) {
-        return productRepository.findById(id);
+    private ResponseEntity<?> getProductById(@PathVariable Long id) {
+        return productService.getProductById(id);
     }
 
     @PostMapping("/add")
     private ResponseEntity<Product> addProduct(@RequestBody Product product) throws URISyntaxException {
-        Product savedProduct = productRepository.save(product);
+        Product savedProduct = productService.saveProduct(product);
         return ResponseEntity.created(new URI("/" + savedProduct.getId()))
                 .body(savedProduct);
     }
 
     @PutMapping("/edit/{id}")
-    private ResponseEntity<Product> updateProductById(@PathVariable Long id, @RequestBody Product product) {
-        return (productRepository.existsById(id))
-                ? new ResponseEntity<>(productRepository.save(product), HttpStatus.OK)
-                : new ResponseEntity<>(productRepository.save(product), HttpStatus.CREATED);
+    private Product updateProductById(@PathVariable Long id, @RequestBody Product product) {
+        return productService.editProduct(id, product);
     }
 
     @DeleteMapping("/delete/{id}")
     private void deleteProduct(@PathVariable Long id) {
-        productRepository.deleteById(id);
+        productService.deleteProduct(id);
     }
 }
