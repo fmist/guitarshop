@@ -1,6 +1,9 @@
 package com.fmist.guitarshop.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,8 +15,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Size(min = 3)
     private String name;
 
+    @NotBlank
     private String description;
 
     private LocalDateTime timeCreated;

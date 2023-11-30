@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
                 Product product = productRepository.findById(id).orElseThrow();
                 return ResponseEntity.ok().body(product);
             } catch (Exception e) {
-                return  new CustomHandler().handleProductNotFound(id);
+                return new CustomHandler().handleProductNotFound(id);
             }
     }
 
@@ -47,9 +47,12 @@ public class ProductServiceImpl implements ProductService {
         }
 
     @Override
-    public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
+    public ResponseEntity<?> deleteProduct(Long id) {
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id);
+            return ResponseEntity.ok().body("Product with id " + id + " deleted");
+        } else {
+            return new CustomHandler().handleProductNotFound(id);
+        }
     }
-
-
 }

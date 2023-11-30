@@ -7,7 +7,6 @@ import ModalDeleteProduct from "../modals/ModalDeleteProduct";
 export default function ShopList() {
 
     const [posts, setPosts] = useState([])
-
     let navigate = useNavigate()
 
     useEffect(() => {

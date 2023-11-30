@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Container, Form, InputGroup} from "react-bootstrap";
 import Rest from "../api/Rest";
-import {useNavigate, useParams} from 'react-router';
+import {useParams} from 'react-router';
 
 const EditBar = () => {
     const [product, setProduct] = useState(
@@ -19,8 +19,6 @@ const EditBar = () => {
     useEffect(() => {
       Rest.loadProduct(id, setProduct)
     }, [])
-
-    let navigate = useNavigate()
 
     return (
         <Container className="w-50">
@@ -55,8 +53,9 @@ const EditBar = () => {
             <Button onClick={
                 function (e) {
                     e.preventDefault()
-                    Rest.editProduct(id, product)
-                    navigate("/")
+                    const resp = Rest.editProduct(id, product)
+                    // navigate("/")
+                    console.log(resp)
                 }
             }>Submit</Button>
         </Container>
