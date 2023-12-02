@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Container, Form, InputGroup} from "react-bootstrap";
-import Rest from "../api/Rest";
-import {useParams} from 'react-router';
+import {editProduct, loadProduct} from "../api/Axios";
+import {useNavigate, useParams} from 'react-router';
 
 const EditBar = () => {
+    let navigate = useNavigate()
     const [product, setProduct] = useState(
         {
             name: "",
@@ -17,8 +18,8 @@ const EditBar = () => {
     const {id} = useParams()
 
     useEffect(() => {
-      Rest.loadProduct(id, setProduct)
-    }, [])
+      loadProduct(id, setProduct)
+    }, [id])
 
     return (
         <Container className="w-50">
@@ -51,11 +52,10 @@ const EditBar = () => {
                 />
             </InputGroup>
             <Button onClick={
-                function (e) {
-                    e.preventDefault()
-                    const resp = Rest.editProduct(id, product)
-                    // navigate("/")
-                    console.log(resp)
+                function () {
+                    editProduct(id, product)
+                    navigate("/")
+                    window.location.reload()
                 }
             }>Submit</Button>
         </Container>

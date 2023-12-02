@@ -27,7 +27,12 @@ const ModalDeleteProduct = ({OnChange}) => {
                     <Button variant="outline-primary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="danger" onClick={(e) => handleChange(e)}>
+                    <Button variant="danger" onClick={
+                        function (e) {
+                            handleChange(e)
+                            window.location.reload()
+                        }
+                    }>
                         Submit
                     </Button>
                 </Modal.Footer>

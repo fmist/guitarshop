@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {Button, Table} from "react-bootstrap";
-import Rest from "../api/Rest";
+import {deleteProduct, loadProducts} from "../api/Axios";
 import {useNavigate} from "react-router";
 import ModalDeleteProduct from "../modals/ModalDeleteProduct";
 
@@ -10,7 +10,7 @@ export default function ShopList() {
     let navigate = useNavigate()
 
     useEffect(() => {
-        Rest.loadProducts(setPosts)
+        loadProducts(setPosts)
     }, []);
 
     return (
@@ -36,7 +36,7 @@ export default function ShopList() {
                                     onClick={() => navigate(`/edit/${posts.id}`)}
                             >Edit
                             </Button>
-                            <ModalDeleteProduct OnChange={() => Rest.deleteProduct(posts.id)}/>
+                            <ModalDeleteProduct OnChange={() => deleteProduct(posts.id)}/>
                         </td>
                     </tr>
                 ))

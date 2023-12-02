@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Button, Container, Form, InputGroup} from "react-bootstrap";
-import Rest from "../api/Rest";
+import {addProduct} from "../api/Axios";
 import {useNavigate} from 'react-router';
 
 const InputBar = () => {
@@ -18,7 +18,7 @@ const InputBar = () => {
 
     return (
         <Container className="w-50">
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-1">
                 <InputGroup.Text id="inputGroup-sizing-default">
                     Name
                 </InputGroup.Text>
@@ -48,7 +48,7 @@ const InputBar = () => {
             </InputGroup>
             <Button onClick={
                 function () {
-                    Rest.addProduct(product)
+                    addProduct(product)
                         .then(r => {console.log(r.data)})
                     navigate("/")
                     window.location.reload()

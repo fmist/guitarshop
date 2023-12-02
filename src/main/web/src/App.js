@@ -3,9 +3,9 @@ import ShopList from "./pages/ShopList";
 import "bootstrap/dist/css/bootstrap.css"
 import Menubar from "./pages/Menubar";
 import {Route, Routes} from "react-router-dom";
-import InputBar from "./pages/InputBar";
 import About from "./pages/About";
 import EditBar from "./pages/EditBar";
+import InputBar from "./pages/InputBar";
 
 function App() {
   return (
